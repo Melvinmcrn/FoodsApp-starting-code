@@ -14,10 +14,10 @@ import retrofit2.http.GET;
 
 public interface FoodApi {
 
-    @GET("latest.php")
+    @GET("random.php")
     Call<Meals> getMeal();
 
-    // TODO 12 also make the Call like getMeals() method for category
+    // also make the Call like getMeals() method for category
 
     /*
      * @GET (" url ") -->
@@ -28,4 +28,6 @@ public interface FoodApi {
      *     that the result of the request [GET] will be accommodated into Object (Category)
      *
      */
+    @GET("categories.php")
+    Call<Categories> getCategories();
 }

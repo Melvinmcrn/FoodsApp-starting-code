@@ -13,8 +13,6 @@ import java.util.List;
 
 public interface HomeView {
     /*
-     * TODO 13 Create void method
-     *
      * The interface of this method will behave bridging between presenters to activities
      * then activity Overriding the interface
      *
@@ -24,6 +22,11 @@ public interface HomeView {
      * 4. Displays Category data (with List parameters <Category> category) setCategories();
      * 5. and, Behavior when an error occurs when requesting data to the API
      */
-    // TODO 14 showLoading()
+
+    void showLoading();
+    void hideLoading();
+    void setMeals(List<Meals.Meal> meal);
+    void setCategories(List<Categories.Category> category);
+    void onErrorLoading(String message);
 
 }

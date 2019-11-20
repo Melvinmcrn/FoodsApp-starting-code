@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -27,35 +28,69 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-// TODO 31 implement the HomeView interface at the end
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements HomeView {
 
     /*
-     * TODO 32 Add @BindView Annotation (1)
+     * Add @BindView Annotation (1)
      *
      * 1. viewPagerHeader
      * 2. recyclerCategory
      *
      */
+    @BindView(R.id.viewPagerHeader) ViewPager viewPagerMeal;
+    @BindView(R.id.recyclerCategory) RecyclerView recyclerViewCategory;
+
 
     /*
-     *  TODO 33 Create variable for presenter;
+     *  Create variable for presenter;
      */
+    HomePresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         /*
-         *  TODO 34 bind the ButterKnife (2)
+         *  bind the ButterKnife (2)
          */
+        ButterKnife.bind(this);
 
         /*
-         *  TODO 35 Declare the presenter
+         *  Declare the presenter
          *  new HomePresenter(this)
          */
+        presenter = new HomePresenter(this);
+        presenter.getMeals();
     }
 
-    // TODO 36 Overriding the interface
+    @Override
+    public void showLoading() {
+        findViewById(R.id.shimmerMeal).setVisibility(View.VISIBLE);
+        findViewById(R.id.shimmerCategory).setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoading() {
+        findViewById(R.id.shimmerMeal).setVisibility(View.GONE);
+        findViewById(R.id.shimmerCategory).setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setMeals(List<Meals.Meal> meal) {
+        System.err.println("################# SET MEALS ######################");
+        for(Meals.Meal mealresult : meal) {
+            Log.w("meal name : ", mealresult.getStrMeal());
+        }
+    }
+
+    @Override
+    public void setCategories(List<Categories.Category> category) {
+
+    }
+
+    @Override
+    public void onErrorLoading(String message) {
+        System.err.println(message);
+    }
 
 }
