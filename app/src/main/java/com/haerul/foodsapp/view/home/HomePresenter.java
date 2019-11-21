@@ -27,9 +27,7 @@ class HomePresenter {
     void getMeals() {
         // do loading before making a request to the server
         view.showLoading();
-        System.out.println("################################## START ##############################################");
         Call<Meals> mealsCall = Utils.getApi().getMeal();
-        System.out.println("################################## DONE ##############################################");
         mealsCall.enqueue(new Callback<Meals>() {
             @Override
             public void onResponse(@NonNull Call<Meals> call,@NonNull Response<Meals> response) {
@@ -60,7 +58,6 @@ class HomePresenter {
                  * 1. closes loading
                  * 2. displays an error message
                  */
-                System.out.println("################################## FUCK ##############################################");
                 // Close loading
                 view.hideLoading();
                 // Show an error message
@@ -73,7 +70,6 @@ class HomePresenter {
     void getCategories() {
         // do loading before making a request to the server
         view.showLoading();
-
         // create Call<Categories> categoriesCall = ...
         Call<Categories> categoriesCall = Utils.getApi().getCategories();
 

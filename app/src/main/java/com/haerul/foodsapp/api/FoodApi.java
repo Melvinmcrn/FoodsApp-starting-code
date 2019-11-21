@@ -14,7 +14,7 @@ import retrofit2.http.GET;
 
 public interface FoodApi {
 
-    @GET("random.php")
+    @GET("search.php?f=a")
     Call<Meals> getMeal();
 
     // also make the Call like getMeals() method for category

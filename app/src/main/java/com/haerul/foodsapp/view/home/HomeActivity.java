@@ -6,6 +6,7 @@
  -----------------------------------------------------------------------------*/
 package com.haerul.foodsapp.view.home;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -61,6 +62,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
          */
         presenter = new HomePresenter(this);
         presenter.getMeals();
+        presenter.getCategories();
     }
 
     @Override
@@ -77,20 +79,35 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
     @Override
     public void setMeals(List<Meals.Meal> meal) {
-        System.err.println("################# SET MEALS ######################");
-        for(Meals.Meal mealresult : meal) {
-            Log.w("meal name : ", mealresult.getStrMeal());
-        }
+        ViewPagerHeaderAdapter headerAdapter = new ViewPagerHeaderAdapter(meal, this);
+        viewPagerMeal.setAdapter(headerAdapter);
+        viewPagerMeal.setPadding(20, 0, 150, 0);
+        headerAdapter.notifyDataSetChanged();
+
+        headerAdapter.setOnItemClickListener((v, position) -> {
+            Toast.makeText(this, meal.get(position).getStrMeal(), Toast.LENGTH_SHORT).show();
+        });
     }
 
     @Override
     public void setCategories(List<Categories.Category> category) {
+        RecyclerViewHomeAdapter homeAdapter = new RecyclerViewHomeAdapter(category, this);
+        recyclerViewCategory.setAdapter(homeAdapter);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 3,
+                GridLayoutManager.VERTICAL, false);
+        recyclerViewCategory.setLayoutManager(layoutManager);
+        recyclerViewCategory.setClipToPadding(false);
+        recyclerViewCategory.setNestedScrollingEnabled(true);
+        homeAdapter.notifyDataSetChanged();
 
+        homeAdapter.setOnItemClickListener((v, position) -> {
+            Toast.makeText(this, category.get(position).getStrCategory(), Toast.LENGTH_SHORT).show();
+        });
     }
 
     @Override
     public void onErrorLoading(String message) {
-        System.err.println(message);
+        Utils.showDialogMessage(this, "Title", message);
     }
 
 }

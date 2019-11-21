@@ -27,6 +27,7 @@ public class Meals {
     }
 
     public class Meal {
+
         @SerializedName("idMeal")
         @Expose
         private String idMeal;
@@ -50,7 +51,7 @@ public class Meals {
         private String strMealThumb;
         @SerializedName("strTags")
         @Expose
-        private Object strTags;
+        private String strTags;
         @SerializedName("strYoutube")
         @Expose
         private String strYoutube;
@@ -237,11 +238,11 @@ public class Meals {
             this.strMealThumb = strMealThumb;
         }
 
-        public Object getStrTags() {
+        public String getStrTags() {
             return strTags;
         }
 
-        public void setStrTags(Object strTags) {
+        public void setStrTags(String strTags) {
             this.strTags = strTags;
         }
 
@@ -589,5 +590,4 @@ public class Meals {
             this.dateModified = dateModified;
         }
 
-    }
-}
+    }}
